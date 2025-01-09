@@ -14,8 +14,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../ui/form";
 import { Input } from "../features/form-controllers/input";
-import { login } from "@/app/login/action";
 import { redirect } from "next/navigation";
+import { loginAction } from "@/app/login/action";
 const formSchema = z.object({
   email: z
     .string()
@@ -47,7 +47,7 @@ export function LoginForm({
 
   // 2. Define a submit handler.
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
-    const response = await login(data.email, data.password);
+    const response = await loginAction(data.email, data.password);
     if (response.success) {
       toast({
         variant: "success",

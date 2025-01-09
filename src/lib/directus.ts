@@ -1,11 +1,21 @@
-import { authentication, createDirectus, rest } from "@directus/sdk";
+import {
+  authentication,
+  createDirectus,
+  rest,
+  staticToken,
+} from "@directus/sdk";
 
-const directus = createDirectus(process.env.NEXT_PUBLIC_DIRECTUS_API ?? "")
-  .with(authentication())
-  .with(
-    rest({
-      onRequest: (options) => ({ ...options, cache: "no-store" }),
-    })
-  );
-
-export default directus;
+export const directus = (token?: string) => {
+  if (token) {
+    return createDirectus(process.env.NEXT_PUBLIC_DIRECTUS_API ?? "")
+      .with(staticToken(token))
+      .with(rest());
+  }
+  return createDirectus(process.env.NEXT_PUBLIC_DIRECTUS_API ?? "")
+    .with(authentication())
+    .with(
+      rest({
+        onRequest: (options) => ({ ...options, cache: "no-store" }),
+      })
+    );
+};
