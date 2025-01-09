@@ -1,6 +1,6 @@
 import { authentication, createDirectus, rest } from "@directus/sdk";
 
-const directus = createDirectus("https://directus.example.com")
+const directus = createDirectus(process.env.NEXT_PUBLIC_DIRECTUS_API ?? "")
   .with(authentication())
   .with(
     rest({

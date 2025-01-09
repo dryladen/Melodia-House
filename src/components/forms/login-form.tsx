@@ -14,6 +14,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../ui/form";
 import { Input } from "../features/form-controllers/input";
+import { login } from "@/app/login/action";
 const formSchema = z.object({
   email: z
     .string()
@@ -40,12 +41,10 @@ export function LoginForm({
       password: "",
     },
   });
-
+  
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    login(values.email, values.password);
   }
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
