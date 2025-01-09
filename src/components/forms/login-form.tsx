@@ -8,13 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../ui/form";
 import { Input } from "../features/form-controllers/input";
 import { login } from "@/app/login/action";
+import { redirect } from "next/navigation";
 const formSchema = z.object({
   email: z
     .string()
@@ -33,6 +34,8 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const { toast } = useToast();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,10 +49,19 @@ export function LoginForm({
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
     const response = await login(data.email, data.password);
     if (response.success) {
-      console.log("Login successful");
-    } else {
-      console.log("Login failed");
+      toast({
+        variant: "success",
+        title: response.message,
+        description: new Date().toLocaleTimeString(),
+      });
+      redirect("/dashboard");
     }
+    toast({
+      variant: "destructive",
+      title: response.message,
+      description: new Date().toLocaleTimeString(),
+    });
+    form.reset();
   };
 
   return (
@@ -69,11 +81,13 @@ export function LoginForm({
                   name={"email"}
                   label={"Email"}
                   control={form.control}
+                  type="email"
                   placeholder="name@example.com"
                 />
                 <Input
                   name={"password"}
                   label={"Password"}
+                  type="password"
                   control={form.control}
                 />
                 <Button type="submit" className="w-full">
