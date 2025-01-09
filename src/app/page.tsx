@@ -27,7 +27,7 @@ export default function Home() {
             </ul>
             <div className="flex items-center gap-5">
               <ThemeSwitcher />
-              <Link href="/auth/login">
+              <Link href="/login">
                 <Button>Login</Button>
               </Link>
             </div>
