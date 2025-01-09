@@ -62,7 +62,7 @@ const items = [
   },
   {
     title: "Relations",
-    url: "/relation",
+    url: "/relations",
     icon: ArrowRightLeft,
   },
 ];
