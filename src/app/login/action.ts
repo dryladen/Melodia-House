@@ -2,10 +2,16 @@
 
 import directus from "@/lib/directus";
 
-
-
 export async function login(email: string, password: string) {
-  const response = await directus.login(email, password);
-  console.log(response);
-  return response;
+  try {
+    const response = await directus.login(email, password);
+    return {
+      data: response,
+      success: true,
+    };
+  } catch (error) {
+    return {
+      success : false,
+    };
+  }
 }

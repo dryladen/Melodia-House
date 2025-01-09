@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../ui/form";
@@ -41,11 +41,17 @@ export function LoginForm({
       password: "",
     },
   });
-  
+
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    login(values.email, values.password);
-  }
+  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
+    const response = await login(data.email, data.password);
+    if (response.success) {
+      console.log("Login successful");
+    } else {
+      console.log("Login failed");
+    }
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
