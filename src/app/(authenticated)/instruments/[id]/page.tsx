@@ -1,7 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { directus } from "@/lib/directus";
 import { Instrument } from "@/types";
 import { readItem } from "@directus/sdk";
+import { Guitar, Speech, Users } from "lucide-react";
 import { cookies } from "next/headers";
 
 export default async function page({
@@ -29,41 +31,55 @@ export default async function page({
         },
       ],
     })
-  )) as Instrument ;
+  )) as Instrument;
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">{response.name}</h1>
-      <div className="grid gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Students</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-4 grid ">
-              {response.students.length != 0 && response.students.map((student : any) => (
-                <li key={student.id} className="flex items-center space-x-4 border p-4 rounded-md">
-                  {student.students_id.first_name} {student.students_id.last_name}
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex gap-2 items-center">
+          <h1>Piano</h1>
+          <Guitar size={24} />
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="grid gap-4">
+        <Separator />
+        <div className="grid gap-4">
+          <div className="flex gap-2 items-center">
+            <h2 className="text-lg font-semibold">Students</h2>
+            <Users size={16} />
+          </div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {response.students.length != 0 &&
+              response.students.map((student: any) => (
+                <li
+                  key={student.id}
+                  className="flex items-center space-x-4 border p-4 rounded-md"
+                >
+                  {student.students_id.first_name}{" "}
+                  {student.students_id.last_name}
                 </li>
               ))}
-            </ul>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Teachers</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-4">
-              {response.teachers.length != 0 && response.teachers.map((teacher : any) => (
-                <li key={teacher.id} className="flex items-center space-x-4">
-                  <span>{teacher.teachers_id.first_name}</span>
+          </ul>
+        </div>
+        <Separator className="mt-6" />
+        <div className="grid gap-4">
+          <div className="flex gap-2 items-center">
+            <h2 className="text-lg font-semibold">Teachers</h2>
+            <Speech size={16} />
+          </div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {response.teachers.length != 0 &&
+              response.teachers.map((teacher: any) => (
+                <li
+                  key={teacher.id}
+                  className="flex items-center space-x-4 border p-4 rounded-md"
+                >
+                  {teacher.teachers_id.first_name}{" "}
+                  {teacher.teachers_id.last_name}
                 </li>
               ))}
-            </ul>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+          </ul>
+        </div>
+      </CardContent>
+    </Card>
   );
 }

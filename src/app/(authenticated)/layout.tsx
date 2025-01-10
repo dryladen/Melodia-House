@@ -19,7 +19,7 @@ export default async function Layout({
         <div className="flex p-4 border-b-[1px] w-full">
           <AppNavbar />
         </div>
-        <div className="p-4">{children}</div>
+        <div className="p-4 bg-muted">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );
