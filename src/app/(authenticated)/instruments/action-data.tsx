@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Row } from "@tanstack/react-table";
 import { Delete, MoreHorizontal, ReceiptText, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,9 +13,10 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import DeleteDialog from "@/components/features/form-controllers/delete-dialog";
-// import { toast } from "@/components/ui/use-toast";
+import { deleteInstrument } from "./action";
+import { toast } from "@/hooks/use-toast";
 
-export function ActionData({ row } : {row : any}) {
+export function ActionData({ id }: { id: number }) {
   const [deleteOpen, setDeleteOpen] = useState(false);
   return (
     <>
@@ -23,11 +24,12 @@ export function ActionData({ row } : {row : any}) {
         deleteOpen={deleteOpen}
         setDeleteOpen={setDeleteOpen}
         actionFn={async () => {
-          // let response = await deleteProduct(row.getValue("id"));
-          // toast({
-          //   title: response.message,
-          //   variant: response.success === true ? "default" : "destructive",
-          // });
+          let response = await deleteInstrument(id);
+          toast({
+            title: response.title,
+            description: response.message,
+            variant: response.success === true ? "success" : "destructive",
+          });
         }}
       />
       <DropdownMenu>
@@ -38,24 +40,20 @@ export function ActionData({ row } : {row : any}) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuLabel>Fitur</DropdownMenuLabel>
+          <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem>
-            <Link
-              href={`/products/${row.id}`}
-              className="flex items-center bg-white p-1 w-full rounded-sm justify-start"
-            >
-              <ReceiptText className="h-4 w-4 mr-2 text-gray-500" />
-              <span>Details</span>
-            </Link>
+            <Button variant="outline">
+              <Link href={`/instruments/${id}`} className="flex gap-2 items-center">
+                <ReceiptText className="h-4 w-4" />
+                <span>Detail</span>
+              </Link>
+            </Button>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <Button
-              onClick={() => setDeleteOpen(true)}
-              className="p-1 w-full justify-start h-fit border-0 bg-white hover:bg-white text-red-500"
-            >
-              <Trash2 className="h-4 w-4 mr-2 " />
-              <span>Hapus</span>
+            <Button onClick={() => setDeleteOpen(true)} variant={"destructive"}>
+              <Trash2 className="h-4 w-4" />
+              <span>Delete</span>
             </Button>
           </DropdownMenuItem>
         </DropdownMenuContent>
