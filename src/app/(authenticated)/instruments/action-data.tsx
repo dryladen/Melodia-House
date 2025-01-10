@@ -42,7 +42,7 @@ export function ActionData({ id }: { id: number }) {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem>
-            <Button variant="outline">
+            <Button className="w-full" variant="outline">
               <Link href={`/instruments/${id}`} className="flex gap-2 items-center">
                 <ReceiptText className="h-4 w-4" />
                 <span>Detail</span>
@@ -51,7 +51,7 @@ export function ActionData({ id }: { id: number }) {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <Button onClick={() => setDeleteOpen(true)} variant={"destructive"}>
+            <Button className="w-full" onClick={() => setDeleteOpen(true)} variant={"destructive"}>
               <Trash2 className="h-4 w-4" />
               <span>Delete</span>
             </Button>
