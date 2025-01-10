@@ -40,7 +40,7 @@ export default async function page() {
             <CardTitle>Intruments</CardTitle>
             <CardDescription> List of instruments</CardDescription>
           </div>
-          <InstrumentForm defaultValues={{ name: "" }} />
+          <InstrumentForm />
         </div>
       </CardHeader>
       <CardContent className="h-full">

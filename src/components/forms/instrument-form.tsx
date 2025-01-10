@@ -17,17 +17,13 @@ const formSchema = z.object({
   }),
 });
 
-type Props = {
-  defaultValues: z.infer<typeof formSchema>;
-};
-
-const InstrumentForm = ({ defaultValues }: Props) => {
+const InstrumentForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues,
+    defaultValues : { name: "" },
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
