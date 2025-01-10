@@ -16,12 +16,10 @@ export default async function Layout({
     <SidebarProvider>
       <AppSidebar email={result.email} />
       <SidebarInset>
-        <main className="w-full">
-          <div className="flex p-4 border-b-[1px] w-full">
-            <AppNavbar />
-          </div>
-          <div className="p-4">{children}</div>
-        </main>
+        <div className="flex p-4 border-b-[1px] w-full">
+          <AppNavbar />
+        </div>
+        <div className="p-4">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );
