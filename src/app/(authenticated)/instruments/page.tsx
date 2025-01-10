@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { ActionData } from "./actionColumn";
 import { Speech, Users } from "lucide-react";
+import InstrumentForm from "@/components/forms/instrument-form";
 
 type Instrument = {
   id: number;
@@ -40,8 +41,13 @@ export default async function page() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Intruments</CardTitle>
-        <CardDescription> List of instruments</CardDescription>
+        <div className="flex justify-between items-start w-full">
+          <div className="flex flex-col gap-2">
+            <CardTitle>Intruments</CardTitle>
+            <CardDescription> List of instruments</CardDescription>
+          </div>
+          <InstrumentForm defaultValues={{ name: "" }} />
+        </div>
       </CardHeader>
       <CardContent className="h-full">
         <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
