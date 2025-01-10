@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ActionData } from "./actionColumn";
+import { ActionData } from "./action-data";
 import { Speech, Users } from "lucide-react";
 import InstrumentForm from "@/components/forms/instrument-form";
 
@@ -57,8 +57,8 @@ export default async function page() {
               key={instrument.id}
             >
               <div className="flex justify-between items-center w-full">
-                <h2>{instrument.name}</h2>
-                <ActionData row={instrument} />
+                <h2 className="font-bold">{instrument.name}</h2>
+                <ActionData id={instrument.id} />
               </div>
               <div className="flex gap-4 items-center">
                 <div className="flex gap-2 items-center">

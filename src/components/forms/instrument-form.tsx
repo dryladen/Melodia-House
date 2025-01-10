@@ -9,6 +9,8 @@ import { useState } from "react";
 import { z } from "zod";
 import { ResponsiveDialog } from "../features/form-controllers/responsive-dialog";
 import { Input } from "../features/form-controllers/input";
+import { addInstrument } from "@/app/(authenticated)/instruments/action";
+import { toast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -21,7 +23,6 @@ type Props = {
 };
 
 const InstrumentForm = ({ defaultValues }: Props) => {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -32,18 +33,13 @@ const InstrumentForm = ({ defaultValues }: Props) => {
 
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
     setLoading(true);
-    let response;
-    // if (data.mode === "create") {
-    //   response = await createProduct(data);
-    // } else {
-    //   response = await updateProduct(data);
-    // }
-    // toast({
-    //   title: response.message,
-    //   variant: response.success === true ? "default" : "destructive",
-    // });
-    // form.reset();
-    // router.refresh();
+    const response = await addInstrument(data.name);
+    toast({
+      title: response.title,
+      description: response.message,
+      variant: response.success === true ? "success" : "destructive",
+    });
+    form.reset();
     setLoading(false);
     setIsOpen(false);
   };
