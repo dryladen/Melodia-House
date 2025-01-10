@@ -1,10 +1,8 @@
-import Link from "next/link";
 import Image from "next/image";
-import { Button } from "../ui/button";
 
 export default function HeroSection() {
   return (
-    <div className="grid grid-cols-2 p-3">
+    <section className="grid grid-cols-2 p-3">
       <div className="flex flex-col gap-4 items-start justify-center">
         <h1 className="sr-only">Melodia Studio</h1>
         <p className="text-xl font-medium">Welcome</p>
@@ -33,6 +31,6 @@ export default function HeroSection() {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
