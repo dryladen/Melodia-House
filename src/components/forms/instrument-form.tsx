@@ -3,7 +3,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { useRouter } from "next/navigation";
 import { LoaderCircle, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import { z } from "zod";
@@ -66,7 +65,7 @@ const InstrumentForm = ({ defaultValues }: Props) => {
               {...(loading && { disabled: true })}
             >
               {loading && <LoaderCircle size={24} className="animate-spin" />}
-              Simpan
+              Save
             </Button>
           </form>
         </Form>
