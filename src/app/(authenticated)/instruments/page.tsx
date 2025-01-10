@@ -11,17 +11,11 @@ import {
 import { ActionData } from "./action-data";
 import { Speech, Users } from "lucide-react";
 import InstrumentForm from "@/components/forms/instrument-form";
-
-type Instrument = {
-  id: number;
-  name: string;
-  students: string[];
-  teachers: string[];
-};
+import { Instrument } from "@/types";
 
 export default async function page() {
   const token = (await cookies()).get("directus_session_token");
-  // Pastikan token valid sebelum mengirimkan permintaan
+  // if token is not found
   if (!token) {
     return (
       <Card>
@@ -32,7 +26,7 @@ export default async function page() {
       </Card>
     );
   }
-  // Ambil data dari Directus
+  // fetch instruments
   const result = (await directus(token.value).request(
     readItems("instruments", {
       fields: ["id", "name", "students", "teachers"],
