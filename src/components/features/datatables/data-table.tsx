@@ -74,13 +74,15 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex flex-col bg-background p-4 sm:p-6 full gap-2 sm:gap-4 shadow-md rounded-lg border-[1px]">
+      <div className="flex w-full flex-col bg-background p-4 sm:p-6 full gap-2 sm:gap-4 shadow-md rounded-lg border-[1px]">
         <div className="flex flex-col">
           <h1 className="font-bold text-2xl sm:text-4xl">{title}</h1>
         </div>
         <div className="flex items-center gap-2">
           <Input
-            placeholder={`${searchPlaceholder ?? searchPlaceholder ?? "Cari data"}...`}
+            placeholder={`${
+              searchPlaceholder ?? searchPlaceholder ?? "Search data"
+            }...`}
             value={
               (table
                 .getColumn(`${search ?? "name"}`)
@@ -135,7 +137,13 @@ export function DataTable<TData, TValue>({
                     return (
                       <TableHead
                         key={header.id}
-                        className={cn((header.column.columnDef.meta as { className?: string })?.className)}
+                        className={cn(
+                          (
+                            header.column.columnDef.meta as {
+                              className?: string;
+                            }
+                          )?.className
+                        )}
                       >
                         {header.isPlaceholder
                           ? null
@@ -155,11 +163,15 @@ export function DataTable<TData, TValue>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
+                    className="w-fit"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell
                         key={cell.id}
-                        className={cn((cell.column.columnDef.meta as { className?: string })?.className)}
+                        className={cn(
+                          (cell.column.columnDef.meta as { className?: string })
+                            ?.className
+                        )}
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
@@ -184,8 +196,21 @@ export function DataTable<TData, TValue>({
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
           <div className="text-xs text-muted-foreground">
-            Data <strong>1-{table.getRowModel().rows?.length}</strong> dari{" "}
-            <strong>{table.getRowCount()}</strong> data
+            Data{" "}
+            <strong>
+              {table.getState().pagination.pageIndex *
+                table.getState().pagination.pageSize +
+                1}
+            </strong>
+            -
+            <strong>
+              {Math.min(
+                (table.getState().pagination.pageIndex + 1) *
+                  table.getState().pagination.pageSize,
+                table.getFilteredRowModel().rows.length
+              )}
+            </strong>{" "}
+            of <strong>{table.getFilteredRowModel().rows.length}</strong> data
           </div>
           <Button
             variant="outline"
@@ -193,7 +218,7 @@ export function DataTable<TData, TValue>({
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Sebelumnya
+            Prev
           </Button>
           <Button
             variant="outline"
@@ -201,7 +226,7 @@ export function DataTable<TData, TValue>({
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Selanjutnya
+            Next
           </Button>
         </div>
       </div>
