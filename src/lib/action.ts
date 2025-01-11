@@ -2,30 +2,28 @@
 
 import { cookies } from "next/headers";
 import { directus } from "./directus";
-import { readItems, readRoles } from "@directus/sdk";
+import { readItems, readRoles, readUsers } from "@directus/sdk";
+import { Instrument, User } from "@/types";
 
-type Student = {
-  users : {
-    id: string;
-    first_name: string;
-    last_name: string;
-    email: string;
-  }[]
-};
-
-type Instrument = {
-  id: string;
-  name: string;
-};
-
-export async function getStudents() {
+export async function getUsers(role: string) {
   const token = (await cookies()).get("directus_session_token")?.value;
   const response = await directus(token).request(
-    readRoles({
-      fields: [{ users: ["id", "first_name", "last_name", "email"] }],
-      filter: { name: "Student" },
+    readUsers({
+      fields: ["id", "first_name", "last_name", "email"],
+      filter: { role: { name: role } },
+      limit: 500,
     })
-  ) as Student[];
+  ) as User[];
+  return response;
+}
+export async function getRoles() {
+  const token = (await cookies()).get("directus_session_token")?.value;
+  const response = await directus(token).request(
+    readUsers({
+      fields: ["id", "first_name", "last_name", "email", { role: ["name"] }],
+      filter: { role: { name: "Student" } },
+    })
+  ) as User[];
   return response;
 }
 
