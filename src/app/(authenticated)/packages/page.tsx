@@ -4,8 +4,8 @@ import { directus } from "@/lib/directus";
 import { cookies } from "next/headers";
 import { readItems } from "@directus/sdk";
 import { Package } from "@/types";
-import PackageForm from "@/components/forms/package-form";
-import { getInstruments, getStudents } from "@/lib/action";
+import { getInstruments, getUsers } from "@/lib/action";
+import CreatePackageForm from "@/components/forms/create-package-form";
 
 export default async function page() {
   const token = (await cookies()).get("directus_session_token")?.value;
@@ -24,13 +24,14 @@ export default async function page() {
         {
           instrument: ["id", "name"],
         },
-      ], sort: "-date_created"
+      ],
+      sort: "-date_created",
+      limit: 700,
     })
   )) as Package[];
 
-  const studentList =  getStudents();
+  const studentList = getUsers("Student");
   const instrumentList = getInstruments();
-  // console.log(instrumentList);
   return (
     <>
       <DataTable
@@ -40,7 +41,10 @@ export default async function page() {
         search="student"
         searchPlaceholder="Search student"
       >
-        <PackageForm students={studentList} instruments={instrumentList}/>
+        <CreatePackageForm
+          students={studentList}
+          instruments={instrumentList}
+        />
       </DataTable>
     </>
   );
