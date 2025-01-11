@@ -1,23 +1,28 @@
+export type User = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+};
+
+export type Payment = {
+  id: number;
+  payment_id: string;
+  currency: string;
+  rate: number;
+  payment_date: string;
+};
+
 export type Instrument = {
   id: number;
   name: string;
   students: {
     id: number;
-    students_id?: {
-      id: number;
-      first_name: string;
-      last_name: string;
-      email: string;
-    };
+    students_id?: User;
   }[];
   teachers: {
     id: number;
-    students_id?: {
-      id: number;
-      first_name: string;
-      last_name: string;
-      email: string;
-    };
+    students_id?: User;
   }[];
 };
 
@@ -44,23 +49,28 @@ export type Instrument = {
 //   432806, 432807, 432808
 // ],
 // payments: [ 11055 ]
-export type Package = {
+
+export type Lesson = {
   id: number;
   status: string;
+  remarks: string;
+  start_datetime: string;
+  teacher: User;
+};
+export type Package = {
+  id: number;
+  status: "draft" | "archived" | "published";
   name: string;
   duration: number;
   start_datetime: string;
   end_datetime: string;
-  student: {
-    id: number;
-    first_name: string;
-    last_name: string;
-    email: string;
-  };
+  lessons_quota: number;
+  remarks: string;
   instrument: {
     id: number;
     name: string;
   };
-  lessons: {};
-  lessons_quota: number;
+  student: User;
+  lessons: Lesson[];
+  payments: Payment[];
 };
