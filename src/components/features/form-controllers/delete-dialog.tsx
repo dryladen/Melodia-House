@@ -22,20 +22,21 @@ const DeleteDialog = ({ deleteOpen, setDeleteOpen, actionFn }: Props) => {
     <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Ingin menghapus item ini ?</AlertDialogTitle>
+          <AlertDialogTitle>Delete Confirmation</AlertDialogTitle>
           <AlertDialogDescription>
-            Aksi ini tidak dapat diurungkan, data akan dihapus permanen.
+            Do you really want to delete this item? This process cannot be
+            undone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="flex">
-          <AlertDialogCancel>Tidak</AlertDialogCancel>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             className="bg-red-500"
             onClick={() => {
               actionFn();
             }}
           >
-            Iya
+            Delete
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
