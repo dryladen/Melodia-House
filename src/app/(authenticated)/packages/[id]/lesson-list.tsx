@@ -1,3 +1,4 @@
+import LessonForm from "@/components/forms/lesson-form";
 import {
   Accordion,
   AccordionContent,
@@ -6,21 +7,41 @@ import {
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { getUsers } from "@/lib/action";
 import { Lesson } from "@/types";
 import { BookOpenCheck, Calendar, NotebookText, Speech } from "lucide-react";
-import React from "react";
 
-export default function LessonList({ lessons }: { lessons: Lesson[] }) {
+type LessonListProps = {
+  package_id: number;
+  lesson_quota: number;
+  lessons: Lesson[];
+};
+
+export default function LessonList({
+  package_id,
+  lessons,
+  lesson_quota,
+}: LessonListProps) {
   return (
     <Card className="flex flex-col grow">
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="lessons">
           <CardHeader>
-            <AccordionTrigger>
-              <div className="flex flex-col gap-4">
+            <div className="flex items-center justify-between w-full gap-2 grow">
+              <AccordionTrigger className="flex items-center gap-2 flex-row grow">
                 <h2 className="text-lg font-bold">Lessons</h2>
-              </div>
-            </AccordionTrigger>
+              </AccordionTrigger>
+              <LessonForm
+                teachers={getUsers("Teacher")}
+                defaultValues={{
+                  status: "attended",
+                  teacher: "",
+                  start_datetime: "",
+                  remarks: "",
+                  package: package_id,
+                }}
+              />
+            </div>
             <Separator />
           </CardHeader>
           <AccordionContent>
@@ -72,7 +93,6 @@ export default function LessonList({ lessons }: { lessons: Lesson[] }) {
                         {lesson.teacher.first_name} {lesson.teacher.last_name}
                       </h3>
                     </div>
-
                     {lesson.remarks && (
                       <div className="flex gap-2 items-center text-sm">
                         <NotebookText size={16} />
