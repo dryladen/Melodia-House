@@ -13,7 +13,8 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import DeleteDialog from "@/components/features/form-controllers/delete-dialog";
-// import { toast } from "@/components/ui/use-toast";
+import { deletePackage } from "./action";
+import { toast } from "@/hooks/use-toast";
 
 interface ActionColumnProps<TData>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -28,12 +29,12 @@ export function ActionColumn<TData>({ row }: ActionColumnProps<TData>) {
         deleteOpen={deleteOpen}
         setDeleteOpen={setDeleteOpen}
         actionFn={async () => {
-          // let response = await deleteInstrument(id);
-          // toast({
-          //   title: response.title,
-          //   description: response.message,
-          //   variant: response.success === true ? "success" : "destructive",
-          // });
+          let response = await deletePackage(row.getValue("id"));
+          toast({
+            title: response.title,
+            description: response.message,
+            variant: response.success === true ? "success" : "destructive",
+          });
         }}
       />
       <DropdownMenu>

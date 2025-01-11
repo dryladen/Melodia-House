@@ -62,4 +62,5 @@ export type Package = {
     name: string;
   };
   lessons: {};
+  lessons_quota: number;
 };
