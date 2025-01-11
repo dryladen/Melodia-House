@@ -28,7 +28,7 @@ export function Input<TFieldValues extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem className="w-full">
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className="font-bold">{label}</FormLabel>
           <FormControl>
             <RawInput
               className={cn(
