@@ -51,11 +51,6 @@ const items = [
     icon: Package,
   },
   {
-    title: "Lessons",
-    url: "/lessons",
-    icon: BookOpenCheck,
-  },
-  {
     title: "Payments",
     url: "/payments",
     icon: HandCoins,
