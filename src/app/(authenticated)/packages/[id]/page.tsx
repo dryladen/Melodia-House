@@ -13,6 +13,8 @@ import { readItem } from "@directus/sdk";
 import { AccordionItem } from "@radix-ui/react-accordion";
 import { BookOpenCheck, Calendar, NotebookText, Speech } from "lucide-react";
 import { cookies } from "next/headers";
+import LessonList from "./lesson-list";
+import PaymentList from "./payment-list";
 
 export default async function page({
   params,
@@ -46,6 +48,9 @@ export default async function page({
               teacher: ["id", "first_name", "last_name", "email"],
             },
           ],
+        },
+        {
+          payments: ["id", "payment_date", "rate", "currency"],
         },
       ],
       sort: "-date_created",
@@ -86,85 +91,8 @@ export default async function page({
           />
         </CardContent>
       </Card>
-      <Card className="flex flex-col grow">
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="lessons">
-            <CardHeader>
-              <AccordionTrigger>
-                <div className="flex flex-col gap-4">
-                  <h2 className="text-lg font-bold">Lessons</h2>
-                </div>
-              </AccordionTrigger>
-              <Separator />
-            </CardHeader>
-            <AccordionContent>
-              <CardContent>
-                <ul className="flex flex-col gap-4">
-                    {[...response.lessons].reverse().map((lesson) => (
-                    <li
-                      key={lesson.id}
-                      className="flex flex-col gap-2 border rounded-md p-4"
-                    >
-                      <div className="flex gap-2 items-center text-sm">
-                        <BookOpenCheck size={16} />
-                        <span className="font-bold hidden md:block">
-                          Status:
-                        </span>
-                        <span
-                          className={`capitalize ${
-                            lesson.status === "absent"
-                              ? "text-red-600"
-                              : lesson.status === "attended"
-                              ? "text-green-600"
-                              : ""
-                          }`}
-                        >
-                          {lesson.status}
-                        </span>
-                      </div>
-                      <div className="flex gap-2 text-sm items-center">
-                        <Speech size={16} />
-                        <span className="font-bold hidden md:block">
-                          Teacher:
-                        </span>
-                        <h3>
-                          {lesson.teacher.first_name} {lesson.teacher.last_name}
-                        </h3>
-                      </div>
-                      <div className="flex gap-2 items-center text-sm">
-                        <Calendar size={16} />
-                        <span className="font-bold hidden md:block">Date:</span>
-                        <span>
-                          {new Date(lesson.start_datetime).toLocaleString(
-                            "en-US",
-                            {
-                              weekday: "long",
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                              hour: "numeric",
-                              minute: "numeric",
-                            }
-                          )}
-                        </span>
-                      </div>
-                      {lesson.remarks && (
-                        <div className="flex gap-2 items-center text-sm">
-                          <NotebookText size={16} />
-                          <span className="font-bold hidden md:block">
-                            Remarks:
-                          </span>
-                          <span>{lesson.remarks}</span>
-                        </div>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </Card>
+      <LessonList lessons={response.lessons} />
+      <PaymentList payments={response.payments} />
     </div>
   );
 }

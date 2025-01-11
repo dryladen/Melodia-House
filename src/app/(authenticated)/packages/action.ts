@@ -46,13 +46,18 @@ export async function addPackages({ data }: PackageProps) {
     };
   }
 }
-export async function updatePackage({ id, data }: { id: number; data: PackageProps["data"] }) {
+export async function updatePackage({
+  id,
+  data,
+}: {
+  id: number;
+  data: PackageProps["data"];
+}) {
   try {
     const token = (await cookies()).get("directus_session_token")?.value;
     const response = await directus(token).request(
-      updateItem("packages",id, data)
+      updateItem("packages", id, data)
     );
-    console.log(response);
     if (response) {
       revalidatePath(`/packages/${id}`);
       return {
