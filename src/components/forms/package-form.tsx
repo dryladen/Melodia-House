@@ -9,24 +9,28 @@ import { z } from "zod";
 import { Input } from "../features/form-controllers/input";
 import { toast } from "@/hooks/use-toast";
 import SelectBox from "../features/form-controllers/select-box";
-import { addPackages } from "@/app/(authenticated)/packages/action";
+import {
+  addPackages,
+  updatePackage,
+} from "@/app/(authenticated)/packages/action";
 import { Instrument, User } from "@/types";
 
 const formSchema = z.object({
+  id: z.number(),
   status: z.enum(["draft", "archived", "published"]),
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
   }),
-  student: z.string(),
-  instrument: z.number(),
+  student: z.string().nonempty("Student is required."),
+  instrument: z.number().positive("Instrument is required."),
   duration: z
     .number()
     .positive()
     .int()
     .or(z.string())
     .pipe(z.coerce.number().positive().int()),
-  start_datetime: z.string(),
-  end_datetime: z.string(),
+  start_datetime: z.string().nonempty("Start Date is required."),
+  end_datetime: z.string().nonempty("End Date is required."),
   remarks: z.string(),
   lessons_quota: z
     .number()
@@ -40,12 +44,14 @@ type PackageProps = {
   students: Promise<User[]>;
   instruments: Promise<Instrument[]>;
   defaultValues?: z.infer<typeof formSchema>;
+  isUpdate?: boolean;
 };
 
 const PackageForm = ({
   students,
   instruments,
   defaultValues,
+  isUpdate = false,
 }: PackageProps) => {
   const [loading, setLoading] = useState(false);
   const studentList = use(students);
@@ -59,13 +65,17 @@ const PackageForm = ({
     dataForm
   ) => {
     setLoading(true);
-    const response = await addPackages({ data: dataForm });
+    let response;
+    if (isUpdate) {
+      response = await updatePackage({ id: dataForm.id, data: dataForm });
+    } else {
+      response = await addPackages({ data: dataForm });
+    }
     toast({
       title: response.title,
       description: response.message,
       variant: response.success === true ? "success" : "destructive",
     });
-    form.reset();
     setLoading(false);
   };
 
@@ -149,11 +159,11 @@ const PackageForm = ({
         />
         <Button
           type="submit"
-          className="w-full"
+          className="w-full font-bold"
           {...(loading && { disabled: true })}
         >
           {loading && <LoaderCircle size={24} className="animate-spin" />}
-          Save
+          {isUpdate ? "Update Package" : "Add Package"}
         </Button>
       </form>
     </Form>

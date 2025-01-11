@@ -26,6 +26,7 @@ const CreatePackageForm = ({ students, instruments }: PackageProps) => {
           students={students}
           instruments={instruments}
           defaultValues={{
+            id: 0,
             status: "draft",
             name: "",
             student: "",
