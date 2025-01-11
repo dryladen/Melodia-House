@@ -15,11 +15,11 @@ export default async function Layout({
   return (
     <SidebarProvider>
       <AppSidebar email={result.email} />
-      <SidebarInset>
+      <SidebarInset className="min-h-screen">
         <div className="flex p-4 border-b-[1px] w-full">
           <AppNavbar />
         </div>
-        <div className="p-4 bg-muted">{children}</div>
+        <div className="p-4 bg-muted flex flex-col grow">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );
