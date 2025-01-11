@@ -46,14 +46,14 @@ const items = [
     icon: Guitar,
   },
   {
-    title: "Lessons",
-    url: "/lessons",
-    icon: BookOpenCheck,
-  },
-  {
     title: "Packages",
     url: "/packages",
     icon: Package,
+  },
+  {
+    title: "Lessons",
+    url: "/lessons",
+    icon: BookOpenCheck,
   },
   {
     title: "Payments",
