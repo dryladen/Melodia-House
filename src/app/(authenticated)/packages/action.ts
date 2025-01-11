@@ -74,7 +74,7 @@ export async function updatePackage({
     }
   } catch (error) {
     return {
-      title: "Failed to add package.",
+      title: "Failed to update package.",
       success: false,
       message: "Name already exists.",
     };

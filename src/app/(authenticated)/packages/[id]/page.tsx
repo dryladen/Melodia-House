@@ -1,17 +1,11 @@
 import PackageForm from "@/components/forms/package-form";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { getInstruments, getUsers } from "@/lib/action";
 import { directus } from "@/lib/directus";
 import { Package } from "@/types";
 import { readItem } from "@directus/sdk";
-import { AccordionItem } from "@radix-ui/react-accordion";
-import { BookOpenCheck, Calendar, NotebookText, Speech } from "lucide-react";
+import { NotebookText} from "lucide-react";
 import { cookies } from "next/headers";
 import LessonList from "./lesson-list";
 import PaymentList from "./payment-list";
@@ -73,11 +67,11 @@ export default async function page({
         </CardHeader>
         <CardContent>
           <PackageForm
+
             instruments={instrumentList}
             students={studentList}
-            isUpdate
+            id_package={response.id}
             defaultValues={{
-              id: response.id,
               status: response.status,
               name: response.name,
               student: response.student.id,
@@ -91,7 +85,11 @@ export default async function page({
           />
         </CardContent>
       </Card>
-      <LessonList lessons={response.lessons} />
+      <LessonList
+        lessons={response.lessons}
+        package_id={response.id}
+        lesson_quota={response.lessons_quota}
+      />
       <PaymentList payments={response.payments} />
     </div>
   );

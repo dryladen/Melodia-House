@@ -23,10 +23,10 @@ const CreatePackageForm = ({ students, instruments }: PackageProps) => {
         description="Please fill the form below to add a new package."
       >
         <PackageForm
+          setIsOpen={setIsOpen}
           students={students}
           instruments={instruments}
           defaultValues={{
-            id: 0,
             status: "draft",
             name: "",
             student: "",

@@ -16,7 +16,6 @@ import {
 import { Instrument, User } from "@/types";
 
 const formSchema = z.object({
-  id: z.number(),
   status: z.enum(["draft", "archived", "published"]),
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -44,14 +43,16 @@ type PackageProps = {
   students: Promise<User[]>;
   instruments: Promise<Instrument[]>;
   defaultValues?: z.infer<typeof formSchema>;
-  isUpdate?: boolean;
+  setIsOpen?: React.Dispatch<React.SetStateAction<boolean>> | undefined;
+  id_package?: number;
 };
 
 const PackageForm = ({
   students,
   instruments,
   defaultValues,
-  isUpdate = false,
+  id_package,
+  setIsOpen,
 }: PackageProps) => {
   const [loading, setLoading] = useState(false);
   const studentList = use(students);
@@ -66,8 +67,8 @@ const PackageForm = ({
   ) => {
     setLoading(true);
     let response;
-    if (isUpdate) {
-      response = await updatePackage({ id: dataForm.id, data: dataForm });
+    if (id_package) {
+      response = await updatePackage({ id: id_package, data: dataForm });
     } else {
       response = await addPackages({ data: dataForm });
     }
@@ -77,6 +78,7 @@ const PackageForm = ({
       variant: response.success === true ? "success" : "destructive",
     });
     setLoading(false);
+    if (setIsOpen) setIsOpen(false);
   };
 
   return (
@@ -163,7 +165,7 @@ const PackageForm = ({
           {...(loading && { disabled: true })}
         >
           {loading && <LoaderCircle size={24} className="animate-spin" />}
-          {isUpdate ? "Update Package" : "Add Package"}
+          {id_package ? "Update Package" : "Add Package"}
         </Button>
       </form>
     </Form>
