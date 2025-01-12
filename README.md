@@ -21,7 +21,10 @@ Clone the repository:
 ```bash
 git clone https://github.com/dryladen/Melodia-House.git
 
-cd <repository-name>
+```
+
+```bash
+cd melodia-house
 ```
 
 Create an .env.local file in the root directory:
