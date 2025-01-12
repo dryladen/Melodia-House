@@ -57,7 +57,10 @@ yarn install
 
 ## 🚀 Running the Application
 
-Start the development server:
+- ### Start directus container
+  Open your browser and navigate to:
+  http://localhost:8055
+- ### Start the development server :
 
 ```bash
 npm run dev
