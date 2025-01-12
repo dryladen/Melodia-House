@@ -13,17 +13,21 @@ export type Payment = {
   payment_date: string;
 };
 
+export type Student = {
+  id: number;
+  students_id: User;
+};
+
+export type Teacher = {
+  id: number;
+  teachers_id: User;
+};
+
 export type Instrument = {
   id: number;
   name: string;
-  students: {
-    id: number;
-    students_id?: User;
-  }[];
-  teachers: {
-    id: number;
-    students_id?: User;
-  }[];
+  students: Student[];
+  teachers: Teacher[];
 };
 
 // id: 11458,

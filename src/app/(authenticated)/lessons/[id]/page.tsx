@@ -1,11 +1,7 @@
-import LessonForm from "@/components/forms/lesson-form";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { getUsers } from "@/lib/action";
 import { directus } from "@/lib/directus";
 import { Lesson } from "@/types";
 import { readItem } from "@directus/sdk";
-import { NotebookText } from "lucide-react";
 import { cookies } from "next/headers";
 import SingleMenu from "./single-menu";
 

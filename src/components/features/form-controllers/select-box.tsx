@@ -47,7 +47,9 @@ const SelectBox = <TFieldValues extends FieldValues>({
 
   const handleSelect = (
     selectedValue: string,
+    /* eslint-disable */
     onChange: (...event: any[]) => void,
+    /* eslint-enable */
     value: PathValue<TFieldValues, Path<TFieldValues>>
   ) => {
     if (multiple) {
@@ -63,7 +65,7 @@ const SelectBox = <TFieldValues extends FieldValues>({
       setIsOpen(false);
     }
   };
-
+  // eslint-disable-next-line
   const handleClear = (onChange: (...event: any[]) => void) => {
     onChange?.(multiple ? [] : "");
   };

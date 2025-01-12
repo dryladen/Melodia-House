@@ -3,14 +3,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { LoaderCircle, PlusCircle } from "lucide-react";
+import { LoaderCircle} from "lucide-react";
 import { use, useState } from "react";
 import { z } from "zod";
 import { Input } from "../features/form-controllers/input";
 import { toast } from "@/hooks/use-toast";
 import SelectBox from "../features/form-controllers/select-box";
 import { User } from "@/types";
-import { ResponsiveDialog } from "../features/form-controllers/responsive-dialog";
 import {
   addLesson,
   updateLesson,

@@ -23,7 +23,7 @@ export function ActionLesson({ id }: { id: number }) {
         deleteOpen={deleteOpen}
         setDeleteOpen={setDeleteOpen}
         actionFn={async () => {
-          let response = await deleteLesson(id);
+          const response = await deleteLesson(id);
           toast({
             title: response.title,
             description: response.message,

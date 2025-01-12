@@ -23,7 +23,7 @@ export function ActionData({ id }: { id: number }) {
         deleteOpen={deleteOpen}
         setDeleteOpen={setDeleteOpen}
         actionFn={async () => {
-          let response = await deleteInstrument(id);
+          const response = await deleteInstrument(id);
           toast({
             title: response.title,
             description: response.message,

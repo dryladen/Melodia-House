@@ -2,6 +2,7 @@ import AppNavbar from "@/components/app-navbar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { directus } from "@/lib/directus";
+import { getErrorMessage } from "@/lib/utils";
 import { readMe } from "@directus/sdk";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -26,6 +27,7 @@ export default async function Layout({
       </SidebarProvider>
     );
   } catch (error) {
+    getErrorMessage(error)
     redirect("/login");
   }
 }

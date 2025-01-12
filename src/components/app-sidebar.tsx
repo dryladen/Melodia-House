@@ -3,7 +3,6 @@ import {
   ArrowRightLeft,
   BookOpenCheck,
   ChevronUp,
-  CircleUser,
   Guitar,
   HandCoins,
   Home,

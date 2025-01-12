@@ -3,8 +3,6 @@
 import { cookies } from "next/headers";
 import { directus } from "./directus";
 import {
-  authentication,
-  createDirectus,
   readItems,
   readUsers,
 } from "@directus/sdk";

@@ -1,6 +1,6 @@
 "use client"
 import { Row } from "@tanstack/react-table";
-import { Delete, MoreHorizontal, ReceiptText, Trash2 } from "lucide-react";
+import { MoreHorizontal, ReceiptText, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -29,7 +29,7 @@ export function ActionColumn<TData>({ row }: ActionColumnProps<TData>) {
         deleteOpen={deleteOpen}
         setDeleteOpen={setDeleteOpen}
         actionFn={async () => {
-          let response = await deletePackage(row.getValue("id"));
+          const response = await deletePackage(row.getValue("id"));
           toast({
             title: response.title,
             description: response.message,

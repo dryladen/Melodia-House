@@ -72,7 +72,7 @@ export async function updateLesson({
     return {
       title: "Failed to add package.",
       success: false,
-      message: "Name already exists.",
+      message: getErrorMessage(error)
     };
   }
 }
@@ -91,7 +91,7 @@ export async function deleteLesson(id: number) {
     return {
       title: "Failed to delete package.",
       success: false,
-      message: "An error occurred while deleting the package.",
+      message: getErrorMessage(error)
     };
   }
 }

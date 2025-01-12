@@ -1,6 +1,7 @@
 "use server";
 
 import { directus } from "@/lib/directus";
+import { getErrorMessage } from "@/lib/utils";
 import { createItem, deleteItem } from "@directus/sdk";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
@@ -29,7 +30,7 @@ export async function addInstrument(name: string) {
     return {
       title: "Failed to add instrument.",
       success: false,
-      message: "Name already exists.",
+      message: getErrorMessage(error)
     };
   }
 }
@@ -48,7 +49,7 @@ export async function deleteInstrument(id: number) {
     return {
       title: "Failed to delete instrument.",
       success: false,
-      message: "An error occurred while deleting the instrument.",
+      message: getErrorMessage(error)
     };
   }
 }

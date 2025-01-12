@@ -1,5 +1,6 @@
 "use server";
 import { directus } from "@/lib/directus";
+import { getErrorMessage } from "@/lib/utils";
 import { createItem, deleteItem, updateItem } from "@directus/sdk";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
@@ -42,7 +43,7 @@ export async function addPackages({ data }: PackageProps) {
     return {
       title: "Failed to add package.",
       success: false,
-      message: "Name already exists.",
+      message: getErrorMessage(error)
     };
   }
 }
@@ -76,7 +77,7 @@ export async function updatePackage({
     return {
       title: "Failed to update package.",
       success: false,
-      message: "Name already exists.",
+      message: getErrorMessage(error)
     };
   }
 }
@@ -95,7 +96,7 @@ export async function deletePackage(id: number) {
     return {
       title: "Failed to delete package.",
       success: false,
-      message: "An error occurred while deleting the package.",
+      message: getErrorMessage(error)
     };
   }
 }

@@ -35,13 +35,7 @@ export default function LessonList({
               <CreateLessonForm
                 disable_btn={lessons.length >= lesson_quota}
                 teachers={getUsers("Teacher")}
-                defaultValues={{
-                  status: "attended",
-                  teacher: "",
-                  start_datetime: "",
-                  remarks: "",
-                  package: package_id,
-                }}
+                package_id={package_id}
               />
             </div>
             <Separator />

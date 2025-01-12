@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { directus } from "@/lib/directus";
-import { Instrument } from "@/types";
+import { Instrument, Student } from "@/types";
 import { readItem } from "@directus/sdk";
 import { Guitar, Speech, Users } from "lucide-react";
 import { cookies } from "next/headers";
@@ -49,7 +49,7 @@ export default async function page({
           </div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {response.students.length != 0 &&
-              response.students.map((student: any) => (
+              response.students.map((student : Student) => (
                 <li
                   key={student.id}
                   className="flex items-center space-x-4 border p-4 rounded-md"
@@ -68,7 +68,7 @@ export default async function page({
           </div>
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {response.teachers.length != 0 &&
-              response.teachers.map((teacher: any) => (
+              response.teachers.map((teacher) => (
                 <li
                   key={teacher.id}
                   className="flex items-center space-x-4 border p-4 rounded-md"
