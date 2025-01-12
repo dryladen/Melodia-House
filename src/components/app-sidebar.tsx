@@ -32,6 +32,7 @@ import {
 } from "./ui/dropdown-menu";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signout } from "@/lib/action";
 
 // Menu items.
 const items = [
@@ -49,6 +50,11 @@ const items = [
     title: "Packages",
     url: "/packages",
     icon: Package,
+  },
+  {
+    title: "Lessons",
+    url: "/lessons",
+    icon: BookOpenCheck,
   },
   {
     title: "Payments",
@@ -109,18 +115,8 @@ export function AppSidebar({ email }: Props) {
                 side="top"
                 className="w-[--radix-popper-anchor-width]"
               >
-                <DropdownMenuItem
-                  asChild
-                  className={
-                    "cursor-pointer text-sidebar-foreground hover:bg-sidebar-accent"
-                  }
-                >
-                  <Link href="/profile" className="flex gap-2">
-                    <CircleUser size={16} /> Account
-                  </Link>
-                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  {/* <form action={} className="w-full">
+                  <form action={signout} className="w-full">
                     <button
                       className="button flex gap-2 w-full text-start text-sidebar-foreground "
                       type="submit"
@@ -128,7 +124,7 @@ export function AppSidebar({ email }: Props) {
                       <LogOut size={16} />
                       Log out
                     </button>
-                  </form> */}
+                  </form>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

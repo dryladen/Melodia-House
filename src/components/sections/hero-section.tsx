@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function HeroSection() {
   return (
-    <section className="grid grid-cols-2 p-3">
-      <div className="flex flex-col gap-4 items-start justify-center">
+    <section className="grid grid-cols-1 md:grid-cols-2 p-3">
+      <div className="flex flex-col gap-4 items-start justify-center order-last md:order-first">
         <h1 className="sr-only">Melodia Studio</h1>
         <p className="text-xl font-medium">Welcome</p>
         <p className="text-3xl font-bold">Your Journey to Musical Mastery</p>
@@ -13,7 +13,7 @@ export default function HeroSection() {
           that will help you to learn music in a fun way.
         </p>
       </div>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center ">
         <div className="w-72 md:w-full lg:w-48 xl:w-80">
           <Image
             src={"/brand.jpg"}
