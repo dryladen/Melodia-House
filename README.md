@@ -42,37 +42,59 @@ Replace `<Your Directus API URL>` with the URL of your Directus instance (e.g., 
 
 Install the dependencies:
 
-> npm install 
+```bash
+npm install
+```
 
 or
 
-> yarn install
+```bash
+yarn install
+```
 
 ## 🚀 Running the Application
+
 Start the development server:
 
-> npm run dev
+```bash
+npm run dev
+```
 
 or
-> yarn dev
+
+```bash
+yarn dev
+```
 
 Open your browser and navigate to:
 http://localhost:3000
 
 ## 🏗 Building for Production
+
 To create a production build of the application:
 
 Build the application:
 
-> npm run build
+```bash
+npm run build
+```
 
 or
-> yarn build
+
+```bash
+yarn build
+```
+
 Start the production server:
 
-> npm start
+```bash
+npm start
+```
 
 or
-? yarn start
+
+```bash
+yarn start
+```
 
 By default, the server runs on http://localhost:3000.
