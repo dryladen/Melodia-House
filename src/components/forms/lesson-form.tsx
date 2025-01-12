@@ -31,7 +31,6 @@ type LessonProps = {
 };
 
 const LessonForm = ({ teachers, defaultValues, id_lesson }: LessonProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const teacherList = use(teachers);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -57,75 +56,63 @@ const LessonForm = ({ teachers, defaultValues, id_lesson }: LessonProps) => {
       variant: response.success === true ? "success" : "destructive",
     });
     setLoading(false);
-    setIsOpen(false);
   };
 
   return (
     <>
-      <ResponsiveDialog
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        title="Add Lesson"
-        description="Please fill the form below to add a new package."
-      >
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-3 w-full"
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-3 w-full"
+        >
+          <SelectBox
+            control={form.control}
+            name="status"
+            label="Status"
+            options={[
+              { id: "attended", name: "Attended" },
+              { id: "absent", name: "Absent" },
+            ]}
+          />
+          <SelectBox
+            control={form.control}
+            name="teacher"
+            label="Teacher"
+            options={teacherList.map((teacher) => ({
+              id: teacher.id,
+              name: `${teacher.first_name} ${teacher.last_name}`,
+            }))}
+          />
+          <Input
+            control={form.control}
+            name="start_datetime"
+            label="Start Date"
+            placeholder="Ex : 2024-05-20T04:11:11.103Z"
+            type="datetime-local"
+            className="w-fit md:w-full"
+          />
+          <Input
+            control={form.control}
+            name="remarks"
+            label="Remarks"
+            placeholder="Ex : This package is for beginners."
+          />
+          <Input
+            control={form.control}
+            name="package"
+            label="Package"
+            disabled
+          />
+          <Button
+            type="submit"
+            className="w-full font-bold"
+            {...(loading && { disabled: true })}
           >
-            <SelectBox
-              control={form.control}
-              name="status"
-              label="Status"
-              options={[
-                { id: "attended", name: "Attended" },
-                { id: "absent", name: "Absent" },
-              ]}
-            />
-            <SelectBox
-              control={form.control}
-              name="teacher"
-              label="Teacher"
-              options={teacherList.map((teacher) => ({
-                id: teacher.id,
-                name: `${teacher.first_name} ${teacher.last_name}`,
-              }))}
-            />
-            <Input
-              control={form.control}
-              name="start_datetime"
-              label="Start Date"
-              placeholder="Ex : 2024-05-20T04:11:11.103Z"
-              type="datetime-local"
-              className="w-fit md:w-full"
-            />
-            <Input
-              control={form.control}
-              name="remarks"
-              label="Remarks"
-              placeholder="Ex : This package is for beginners."
-            />
-            <Input
-              control={form.control}
-              name="package"
-              label="Package"
-              disabled
-            />
-            <Button
-              type="submit"
-              className="w-full font-bold"
-              {...(loading && { disabled: true })}
-            >
-              {loading && <LoaderCircle size={24} className="animate-spin" />}
-              {id_lesson ? "Update Lesson" : "Add Lesson"}
-            </Button>
-          </form>
-        </Form>
-      </ResponsiveDialog>
-      <Button onClick={() => setIsOpen(!isOpen)}>
-        <PlusCircle size={16} />
-        <span className="hidden sm:flex">Add Lesson</span>
-      </Button>
+            {loading && <LoaderCircle size={24} className="animate-spin" />}
+            {id_lesson ? "Update Lesson" : "Add Lesson"}
+          </Button>
+        </form>
+      </Form>
     </>
   );
 };

@@ -16,6 +16,8 @@ import { Form } from "../ui/form";
 import { Input } from "../features/form-controllers/input";
 import { redirect } from "next/navigation";
 import { loginAction } from "@/app/login/action";
+import { LoaderCircle } from "lucide-react";
+import { useState } from "react";
 
 const formSchema = z.object({
   email: z
@@ -36,8 +38,7 @@ export function LoginForm({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   const { toast } = useToast();
-
-  // 1. Define your form.
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,8 +47,8 @@ export function LoginForm({
     },
   });
 
-  // 2. Define a submit handler.
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
+    setLoading(true);
     const response = await loginAction(data.email, data.password);
     if (response.success) {
       toast({
@@ -63,6 +64,7 @@ export function LoginForm({
       description: new Date().toLocaleTimeString(),
     });
     form.reset();
+    setLoading(false);
   };
 
   return (
@@ -91,7 +93,14 @@ export function LoginForm({
                   type="password"
                   control={form.control}
                 />
-                <Button type="submit" className="w-full">
+                <Button
+                  type="submit"
+                  className="w-full"
+                  {...(loading && { disabled: true })}
+                >
+                  {loading && (
+                    <LoaderCircle size={24} className="animate-spin" />
+                  )}
                   Login
                 </Button>
               </div>

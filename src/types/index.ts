@@ -52,10 +52,11 @@ export type Instrument = {
 
 export type Lesson = {
   id: number;
-  status: string;
+  status: "attended" | "absent";
   remarks: string;
   start_datetime: string;
   teacher: User;
+  package: number;
 };
 export type Package = {
   id: number;

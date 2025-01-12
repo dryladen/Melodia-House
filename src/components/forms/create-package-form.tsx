@@ -6,7 +6,6 @@ import PackageForm from "./package-form";
 import { PlusCircle } from "lucide-react";
 import { User, Instrument } from "@/types";
 
-
 type PackageProps = {
   students: Promise<User[]>;
   instruments: Promise<Instrument[]>;

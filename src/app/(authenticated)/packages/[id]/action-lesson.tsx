@@ -9,13 +9,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
 import { useState } from "react";
 import DeleteDialog from "@/components/features/form-controllers/delete-dialog";
-import { deleteInstrument } from "./action";
 import { toast } from "@/hooks/use-toast";
+import { deleteLesson } from "./action";
+import Link from "next/link";
 
-export function ActionData({ id }: { id: number }) {
+export function ActionLesson({ id }: { id: number }) {
   const [deleteOpen, setDeleteOpen] = useState(false);
   return (
     <>
@@ -23,7 +23,7 @@ export function ActionData({ id }: { id: number }) {
         deleteOpen={deleteOpen}
         setDeleteOpen={setDeleteOpen}
         actionFn={async () => {
-          let response = await deleteInstrument(id);
+          let response = await deleteLesson(id);
           toast({
             title: response.title,
             description: response.message,
@@ -42,7 +42,7 @@ export function ActionData({ id }: { id: number }) {
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem>
             <Button className="w-full" variant="outline">
-              <Link href={`/instruments/${id}`} className="flex gap-2 items-center">
+              <Link href={`/lessons/${id}`} className="flex gap-2 items-center">
                 <ReceiptText className="h-4 w-4" />
                 <span>Detail</span>
               </Link>
@@ -50,7 +50,11 @@ export function ActionData({ id }: { id: number }) {
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <Button className="w-full" onClick={() => setDeleteOpen(true)} variant={"destructive"}>
+            <Button
+              className="w-full"
+              onClick={() => setDeleteOpen(true)}
+              variant={"destructive"}
+            >
               <Trash2 className="h-4 w-4" />
               <span>Delete</span>
             </Button>

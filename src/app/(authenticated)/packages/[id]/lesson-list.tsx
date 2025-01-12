@@ -1,4 +1,3 @@
-import LessonForm from "@/components/forms/lesson-form";
 import {
   Accordion,
   AccordionContent,
@@ -10,6 +9,8 @@ import { Separator } from "@/components/ui/separator";
 import { getUsers } from "@/lib/action";
 import { Lesson } from "@/types";
 import { BookOpenCheck, Calendar, NotebookText, Speech } from "lucide-react";
+import { ActionLesson } from "./action-lesson";
+import CreateLessonForm from "@/components/forms/create-lesson-form";
 
 type LessonListProps = {
   package_id: number;
@@ -31,7 +32,8 @@ export default function LessonList({
               <AccordionTrigger className="flex items-center gap-2 flex-row grow">
                 <h2 className="text-lg font-bold">Lessons</h2>
               </AccordionTrigger>
-              <LessonForm
+              <CreateLessonForm
+                disable_btn={lessons.length >= lesson_quota}
                 teachers={getUsers("Teacher")}
                 defaultValues={{
                   status: "attended",
@@ -52,22 +54,25 @@ export default function LessonList({
                     key={lesson.id}
                     className="flex flex-col gap-2 border rounded-md p-4"
                   >
-                    <div className="flex gap-2 items-center text-sm">
-                      <Calendar size={16} />
-                      <span className="font-bold hidden md:block">Date:</span>
-                      <span>
-                        {new Date(lesson.start_datetime).toLocaleString(
-                          "en-US",
-                          {
-                            weekday: "long",
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                            hour: "numeric",
-                            minute: "numeric",
-                          }
-                        )}
-                      </span>
+                    <div className="flex items-center justify-between gap-4 w-full">
+                      <div className="flex gap-2 items-center text-sm">
+                        <Calendar size={16} />
+                        <span className="font-bold hidden md:block">Date:</span>
+                        <span>
+                          {new Date(lesson.start_datetime).toLocaleString(
+                            "en-US",
+                            {
+                              weekday: "long",
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                              hour: "numeric",
+                              minute: "numeric",
+                            }
+                          )}
+                        </span>
+                      </div>
+                      <ActionLesson id={lesson.id} />
                     </div>
                     <div className="flex gap-2 items-center text-sm">
                       <BookOpenCheck size={16} />

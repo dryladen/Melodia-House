@@ -50,14 +50,11 @@ export default function PaymentList({ payments }: { payments: Payment[] }) {
                     </div>
                     <div className="flex gap-2 text-sm items-center">
                       <DollarSign size={16} />
-                      <span className="font-bold hidden md:block">
-                        Rate:
-                      </span>
+                      <span className="font-bold hidden md:block">Rate:</span>
                       <h3>
                         {payment.currency} {payment.rate}
                       </h3>
                     </div>
-                    
                   </li>
                 ))}
               </ul>
